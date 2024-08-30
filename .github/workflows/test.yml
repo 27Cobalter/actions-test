@@ -33,7 +33,9 @@ jobs:
               $results += $_.Name
             }
           }
-          $results | ForEach-Object {
-            Write-Output "$($_.Name) Failed"
+          if ($results.Count -eq 0) {
+            Write-Output "All Test Success"
+          } else {
+            Write-Error "Some Test Falied\n$results"
           }
         shell: pwsh
