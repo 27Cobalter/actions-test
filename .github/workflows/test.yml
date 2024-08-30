@@ -27,6 +27,7 @@ jobs:
         run: |
           $results = @()
           Get-ChildItem -Recurse -Filter "*.exe" | ForEach-Object {
+            $env:ENV_VAR="ACTIONS_TEST"
             $result = & $_.FullName
             Write-Output $result
             if ($LASTEXITCODE -ne 0) {
