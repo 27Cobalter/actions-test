@@ -29,7 +29,7 @@ jobs:
           Get-ChildItem -Recurse -Filter "*.exe" | ForEach-Object {
             $result = & $_.FullName
             Write-Output $result
-            if ($LASTEXITCODE -nq 0) {
+            if ($LASTEXITCODE -ne 0) {
               $results += $_.Name
             }
           }
