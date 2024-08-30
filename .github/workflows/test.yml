@@ -21,7 +21,7 @@ jobs:
         run: msbuild Source.sln /p:Configuration=Release /p:Platform=x64
 
       - name: set env
-        run: echo "ENV_VAR=ACTIONS_TEST" >> $GITHUB_ENV
+        run: echo "$ENV:ENV_VAR=ACTIONS_TEST" >> $GITHUB_ENV
       - name: run
         working-directory: Source
         run: |
@@ -36,6 +36,6 @@ jobs:
           if ($results.Count -eq 0) {
             Write-Output "All Test Success"
           } else {
-            Write-Error "Some Test Falied $results"
+            Write-Error "Some Test Falied: [ $results ]"
           }
         shell: pwsh
