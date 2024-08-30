@@ -36,6 +36,6 @@ jobs:
           if ($results.Count -eq 0) {
             Write-Output "All Test Success"
           } else {
-            Write-Error "Some Test Falied\n$results"
+            Write-Error "Some Test Falied $results"
           }
         shell: pwsh
