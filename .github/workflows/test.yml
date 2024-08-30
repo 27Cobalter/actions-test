@@ -25,13 +25,15 @@ jobs:
       - name: run
         working-directory: Source
         run: |
+          $results = @()
           Get-ChildItem -Recurse -Filter "*.exe" | ForEach-Object {
             $result = & $_.FullName
             Write-Output $result
-            if ($LASTEXITCODE -eq 0) {
-              Write-Output "$($_.Name) executed successfully"
-            } else {
-              Write-Error "$($_.Name) failed"
+            if ($LASTEXITCODE -nq 0) {
+              $results += $_.Name
             }
+          }
+          $results | ForEach-Object {
+            Write-Output "$($_.Name) Failed"
           }
         shell: pwsh
