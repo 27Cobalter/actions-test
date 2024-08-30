@@ -13,6 +13,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
+      - name: nuget
+        working-directory: Source
+        run: nuget restore Source.sln
       - name: build
         working-directory: Source
         run: msbuild Source.sln /p:Configuration=Release /p:Platform=x64
