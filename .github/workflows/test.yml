@@ -27,6 +27,7 @@ jobs:
         run: |
           Get-ChildItem -Recurse -Filter "*.exe" | ForEach-Object {
             $result = & $_.FullName
+            Write-Output $result
             if ($LASTEXITCODE -eq 0) {
               Write-Output "$($_.Name) executed successfully"
             } else {
