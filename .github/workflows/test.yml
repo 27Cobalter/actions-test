@@ -1,0 +1,33 @@
+name: test
+
+on:
+  push:
+    branch:
+      - master
+
+jobs:
+  test:
+    runs-on: [self-hosted, windows10]
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: build
+        working-directory: Source
+        run: msbuild Source.sln /p:Configuration=Release /p:Platform=x64
+
+      - name: set env
+        run: echo "ENV_VAR=ACTIONS_TEST" >> $GITHUB_ENV
+      - name: run
+        working-directory: Source
+        run: |
+          Get-ChildITems -Recurse -Filter "*.exe" | ForEach-Object {
+            $result = & $_.FullName
+            if ($LASTEXITCODE -eq 0) {
+              Write-Output "$($_.Name) executed successfully"
+            } else {
+              Write-Error "$($_.Name) failed"
+            }
+          }
+        shell: pwsh
