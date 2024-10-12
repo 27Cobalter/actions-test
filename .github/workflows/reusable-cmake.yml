@@ -1,0 +1,38 @@
+name: reusable-cmake
+
+on:
+  workflow_call:
+    inputs:
+      source-dir:
+        type: string
+        default: "../"
+      build-dir:
+        type: string
+        default: "build"
+      cmake-options:
+        type: string
+      enable-build:
+        type: boolean
+        default: false
+      enable-test:
+        type: boolean
+        default: false
+      enable-package:
+        type: boolean
+        default: false
+
+jobs:
+  cmake-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: configure
+        run: cmake -B ${{inputs.build-dir}} -S ${{inputs.source-dir}} ${{inputs.cmake-options}}
+      - name: build
+        if: ${{inputs.enable-build}}
+        run: cmake -B ${{inputs.build-dir}} --target build
+      - name: test
+        if: ${{inputs.enable-test}}
+        run: cmake -B ${{inputs.build-dir}} --target test
+      - name: package
+        if: ${{inputs.enable-package}}
+        run: camke -B ${{inputs.enable-package}} --target package
