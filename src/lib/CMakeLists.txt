@@ -1,0 +1,7 @@
+add_library(lib STATIC lib.cc lib.h)
+target_include_directories(lib PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+
+install(TARGETS lib
+PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
