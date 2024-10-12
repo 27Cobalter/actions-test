@@ -3,8 +3,6 @@ name: ci-push
 on: push
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
   cmake-build:
     runs-on: ubuntu-latest
     steps:
