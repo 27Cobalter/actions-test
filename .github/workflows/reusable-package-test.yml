@@ -14,7 +14,11 @@ jobs:
       - name: download
         uses: actions/download-artifact@v4
         with:
-          name: ${{inputs.artifat-name}}
-          path: ./packages
+          name: ${{inputs.artifact-name}}
+          path: ./artifact
       - name: find
         run: find . -type f
+      - name: install
+        run: sudo dpkg -i $(find artifact -name "*.deb")
+      - name: run
+        run: /opt/actions-test/bin/main
