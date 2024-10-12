@@ -17,3 +17,9 @@ jobs:
       enable-build: true
       enable-test: false
       enable-package: true
+      artifact-name: package
+  package-test:
+    needs: cmake-packaging
+    uses: ./.github/workflows/reusable-package-test.yml
+    with:
+      artifact-name: package

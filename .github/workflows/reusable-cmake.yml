@@ -20,9 +20,12 @@ on:
       enable-package:
         type: boolean
         default: false
+      artifact-name:
+        type: string
+        default: package
 
 jobs:
-  cmake-build:
+  cmake-flow:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,10 +41,11 @@ jobs:
         if: ${{inputs.enable-package}}
         run: cmake --build ${{inputs.build-dir}} --target package
       - name: upload
+        id: upload
         if: ${{inputs.enable-package}}
         uses: actions/upload-artifact@v4
         with:
-          name: zip-package
+          name: ${{inputs.artifact-name}}
           path: |
             ${{inputs.build-dir}}/package/actions-test-*
           if-no-files-found: error

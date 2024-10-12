@@ -1,0 +1,20 @@
+name: reusable-package-test
+
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        type: string
+        default: package
+
+jobs:
+  package-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: download
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{inputs.artifat-name}}
+          path: ./packages
+      - name: find
+        run: find . -type f
