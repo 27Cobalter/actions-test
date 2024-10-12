@@ -9,4 +9,11 @@ jobs:
       cmake-options: -DCMAKE_BUILD_TYPE=Release -DCPACK_GENERATOR="ZIP"
       enable-build: true
       enable-test: true
+      enable-package: false
+  cmake-packaging:
+    uses: ./.github/workflows/reusable-cmake.yml
+    with:
+      cmake-options: -DCMAKE_BUILD_TYPE=Release -DCPACK_GENERATOR="ZIP"
+      enable-build: true
+      enable-test: false
       enable-package: true
