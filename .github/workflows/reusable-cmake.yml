@@ -37,3 +37,12 @@ jobs:
       - name: package
         if: ${{inputs.enable-package}}
         run: cmake --build ${{inputs.build-dir}} --target package
+      - name: upload
+        if: ${{inputs.enable-package}}
+        uses: actions/upload-artifact@v4
+        with:
+          name: zip-package
+          path: |
+            ${{inputs.build-dir}}/package/actions-test-*
+          if-no-files-found: error
+
