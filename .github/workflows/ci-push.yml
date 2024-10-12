@@ -4,12 +4,9 @@ on: push
 
 jobs:
   cmake-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./reusable-cmake.yml
-        with:
-          cmake-options: -DCMAKE_BUILD_TYPE=Release -DCPACK_GENERATOR="ZIP"
-          enable-build: true
-          enable-tests: true
-          enable-package: true
+    uses: ./reusable-cmake.yml
+    with:
+      cmake-options: -DCMAKE_BUILD_TYPE=Release -DCPACK_GENERATOR="ZIP"
+      enable-build: true
+      enable-tests: true
+      enable-package: true

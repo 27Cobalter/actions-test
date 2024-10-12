@@ -25,6 +25,7 @@ jobs:
   cmake-build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: configure
         run: cmake -B ${{inputs.build-dir}} -S ${{inputs.source-dir}} ${{inputs.cmake-options}}
       - name: build
