@@ -1,3 +1,4 @@
+name: dispatch-docker-bake
 on: workflow_dispatch
 
 permissions:

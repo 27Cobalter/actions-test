@@ -1,3 +1,5 @@
+name: dispatch-docker-run
+
 on: workflow_dispatch
 
 permissions:
@@ -6,8 +8,11 @@ permissions:
 jobs:
   run-docker-script:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: [ "alpine-base", "ubuntu-base" ]
     container:
-      image: ghcr.io/27cobalter/actions-test:sha-3f2eba4
+      image: ghcr.io/27cobalter/actions-test/${{ matrix.image }}:latest
     steps:
       - name: info
         run: |
