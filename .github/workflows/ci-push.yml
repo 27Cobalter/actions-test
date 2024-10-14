@@ -1,6 +1,7 @@
 name: ci-push
 
-on: push
+on: workflow_dispatch
+# on: push
 
 jobs:
   cmake-build:

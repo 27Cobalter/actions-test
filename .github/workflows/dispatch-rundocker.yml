@@ -1,0 +1,18 @@
+on: workflow_dispatch
+
+permissions:
+  packages: write
+
+jobs:
+  run-docker-script:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/27cobalter/actions-test:sha-3f2eba4
+    steps:
+      - name: info
+        run: |
+          pwd
+          ls /etc/
+          ls /
+      - name: Run tesh.sh
+        run: sh /test.sh
