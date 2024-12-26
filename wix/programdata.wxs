@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Fragment>
+        <StandardDirectory Id="CommonAppDataFolder">
+            <Directory Id="DATA_INSTALL_ROOT" Name="actions-test 0.1.1">
+                <Directory Id="DATA_CM_DP_bin" Name="bin"/>
+            </Directory>
+        </StandardDirectory>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="DATA_CM_DP_bin">
+            <Component Id="DATA_CM_CP_bin.main.exe" Guid="*">
+                <File Id="DATA_CM_FP_bin.main.exe" Source="C:/Users/Takumi/source/repos/actions-test/build-wix/package/_CPack_Packages/win64/WIX/actions-test-0.1.1-win64/bin/main.exe" KeyPath="yes"/>
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+</Wix>

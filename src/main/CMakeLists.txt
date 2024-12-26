@@ -1,5 +1,12 @@
 add_executable(main main.cc)
 target_link_libraries(main PRIVATE lib)
+
+macro(PRE_INSTALL_SIGN filename)
+  install(CODE "execute_process(COMMAND powershell -c 'echo InstallTime: ${filename}')")
+endmacro()
+
+PRE_INSTALL_SIGN("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<TARGET_FILE_NAME:main>")
+# install(CODE "execute_process(COMMAND powershell -c 'echo InstallTime: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<TARGET_FILE_NAME:main>')")
 install(TARGETS main
 RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

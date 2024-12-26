@@ -49,6 +49,10 @@ set(CPACK_WIX_PROPERTY_AlwaysInstallElevated 1)
 
 # set(CPACK_PACKAGING_INSTALL_PREFIX /opt/actions-test)
 
+# set(CPACK_WIX_SKIP_PROGRAM_FOLDER ON)
+# set(CPACK_PACKAGE_INSTALL_DIRECTORY "C:\\ProgramData")
+# set(CPACK_PACKAGING_INSTALL_PREFIX "actions-test")
+set(CPACK_WIX_EXTRA_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/wix/programdata.wxs)
 include(CPack)
 
 add_subdirectory(src)
