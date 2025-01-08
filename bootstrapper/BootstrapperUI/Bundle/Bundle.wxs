@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+
+  <Bundle
+    Name           = "CustomBundle"
+    Version        = "1.0.0.0"
+    Manufacturer   = "CustomBundle"
+    UpgradeCode    = "B939667D-4722-485B-9361-191178E77D81"
+    >
+
+    <BootstrapperApplication bal:CommandLineVariables="caseInsensitive">
+
+      <bal:WixManagedBootstrapperApplicationHost />
+
+      <Payload SourceFile="C:\Users\Takumi\source\repos\actions-test\bootstrapper\BootstrapperUI\BootstrapperUI\bin\x64\Debug\BootstrapperUI.dll" bal:BAFactoryAssembly="yes"/>
+      <Payload SourceFile="C:\Users\Takumi\source\repos\actions-test\bootstrapper\BootstrapperUI\packages\WixToolset.Mba.Core.4.0.4\runtimes\win-x64\native\mbanative.dll"/>
+      <Payload SourceFile="C:\Users\Takumi\source\repos\actions-test\bootstrapper\BootstrapperUI\BootstrapperUI\bin\x64\Debug\WixToolset.Mba.Core.dll"/>
+      <Payload SourceFile="C:\Users\Takumi\source\repos\actions-test\bootstrapper\BootstrapperUI\BootstrapperUI\WixToolset.Mba.Host.config"/>
+
+    </BootstrapperApplication>
+
+    <Log Prefix =".AA_BB" Extension="log" />
+    <Variable Name="SampleOption" Type="string" Value="" />
+
+    <Chain>
+      <MsiPackage
+        Id                = "actionstest"
+        SourceFile        = "C:\Users\Takumi\source\repos\actions-test\build-wix\package\actions-test-0.1.1-win64.msi"
+        Visible           = "no"
+        Vital             = "yes"
+        bal:PrereqPackage = "yes"
+        >
+        <MsiProperty Name='SAMPLE' Value='[SampleOption]'/>
+
+      </MsiPackage>
+    </Chain>
+
+  </Bundle>
+</Wix>
