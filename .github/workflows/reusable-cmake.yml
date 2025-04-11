@@ -30,13 +30,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache/restore@v4
-        id: restore
+        id: cache-restore
         with:
           path: ${{ inputs.build-dir }}
-          key: ${{ runner.os }}-cmake-${{ github.run_id }}
+          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
           restore-keys: |
-            ${{ runner.os }}-cmake-${{ github.run_id }}
-            ${{ runner.os }}-cmake-
+            ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-
       - name: configure
         run: cmake -B ${{inputs.build-dir}} -S ${{inputs.source-dir}} ${{inputs.cmake-options}}
       - name: build
@@ -58,7 +57,7 @@ jobs:
             ${{inputs.build-dir}}/package/actions-test-*
           if-no-files-found: error
       - uses: actions/cache/save@v4
-        id: save
+        id: cache-save
         with:
           path: ${{inputs.build-dir}}
-          key: ${{ runner.os }}-cmake-${{ github.run_id }}
+          key: ${{ steps.cache-restore.outputs.cache-primary-key }}

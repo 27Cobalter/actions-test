@@ -8,13 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache/restore@v4
-        id: restore
+        id: cache-restore
         with:
           path: build
-          key: ${{ runner.os }}-cmake-${{ github.run_id }}
+          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
           restore-keys: |
-            ${{ runner.os }}-cmake-${{ github.run_id }}
-            ${{ runner.os }}-cmake-
+            ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-
       - name: configure
         run: cmake -B build -S ./
       - name: build
@@ -22,7 +21,7 @@ jobs:
       - name: test
         run: cmake --build build --target test
       - uses: actions/cache/save@v4
-        id: save
+        id: cache-save
         with:
           path: build
-          key: ${{ runner.os }}-cmake-${{ github.run_id }}
+          key: ${{ steps.cache-restore.outputs.cache-primary-key }}
