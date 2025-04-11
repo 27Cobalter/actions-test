@@ -1,0 +1,36 @@
+name: reusable-cmake
+
+on: workflow_dispatch
+
+jobs:
+  cmake-flow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v4
+        id: restore
+        with:
+          path: build
+          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
+            ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-
+      - name: configure
+        run: cmake -B build -S ./
+      - name: build
+        run: cmake --build build
+      - name: test
+        run: cmake --build build --target test
+      - name: upload
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: |
+            build/package/actions-test-*
+          if-no-files-found: error
+      - uses: actions/cache/save@v4
+        id: save
+        with:
+          path: build
+          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
