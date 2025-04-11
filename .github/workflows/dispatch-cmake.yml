@@ -11,10 +11,10 @@ jobs:
         id: restore
         with:
           path: build
-          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
+          key: ${{ runner.os }}-cmake-${{ github.run_id }}
           restore-keys: |
-            ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
-            ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-
+            ${{ runner.os }}-cmake-${{ github.run_id }}
+            ${{ runner.os }}-cmake-
       - name: configure
         run: cmake -B build -S ./
       - name: build
@@ -25,4 +25,4 @@ jobs:
         id: save
         with:
           path: build
-          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
+          key: ${{ runner.os }}-cmake-${{ github.run_id }}
