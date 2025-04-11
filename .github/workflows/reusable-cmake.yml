@@ -33,7 +33,9 @@ jobs:
         id: restore
         with:
           path: ${{ inputs.build-dir }}
+          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
           restore-keys: |
+            ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-${{ github.run_id }}
             ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt', '**/*.yml') }}-
       - name: configure
         run: cmake -B ${{inputs.build-dir}} -S ${{inputs.source-dir}} ${{inputs.cmake-options}}
