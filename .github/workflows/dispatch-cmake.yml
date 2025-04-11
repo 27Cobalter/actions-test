@@ -21,14 +21,6 @@ jobs:
         run: cmake --build build
       - name: test
         run: cmake --build build --target test
-      - name: upload
-        id: upload
-        uses: actions/upload-artifact@v4
-        with:
-          name: package
-          path: |
-            build/package/actions-test-*
-          if-no-files-found: error
       - uses: actions/cache/save@v4
         id: save
         with:
