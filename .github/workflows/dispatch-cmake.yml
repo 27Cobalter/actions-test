@@ -1,4 +1,4 @@
-name: reusable-cmake
+name: dispatch-cmake
 
 on: workflow_dispatch
 
