@@ -1,0 +1,15 @@
+name: ci-pr
+
+on:
+  pull_request:
+    branches:
+      - master
+
+
+jobs:
+  pr-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: comment
+        run: echo "::error file=.github/workflows/ci-pr.yml,line=3::This is a test error message"
